@@ -14,8 +14,7 @@ namespace Fembot.Modules
 		/// <param name="ctx">Command Context Required for executing the command</param>
 		/// <returns></returns>
 		[Command("roster")]
-		[Description("Displays the current roster. Requires `Administrator` permissions in this server")]
-		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
+		[Description("Displays the current roster.")]
 		public async Task ViewRoster(CommandContext ctx)
 		{
 			DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
@@ -39,10 +38,10 @@ namespace Fembot.Modules
 		/// <param name="ctx">Command Context Required for executing the command</param>
 		/// <param name="name">The name of the enemy team</param>
 		/// <returns></returns>
-		[Command("addscrim")]
-		[Description("Adds a player to the scrim roster. Requires `Administrator` permissions in this server")]
+		[Command("addroster")]
+		[Description("Adds a new scrim to the roster. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task AddScrim(CommandContext ctx, [RemainingText, Description("The enemy team's name")] string name)
+		public async Task AddRoster(CommandContext ctx, [RemainingText, Description("The enemy team's name")] string name)
 		{
 			Bot._config.Scrims.Add(name);
 			Bot._config.Save();
@@ -60,8 +59,8 @@ namespace Fembot.Modules
 		/// <param name="ctx">Command Context Required for executing the command</param>
 		/// <param name="index">Index of the game to remove</param>
 		/// <returns></returns>
-		[Command("removescrim")]
-		[Description("Removes a player from the scrim roster. Requires `Administrator` permissions in this server")]
+		[Command("removeroster")]
+		[Description("Removes a scrim from the current roster. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
 		public async Task RemoveScrim(CommandContext ctx, [Description("Index of the game to remove")] int index)
 		{
@@ -92,10 +91,10 @@ namespace Fembot.Modules
 		/// <param name="ctx">Command Context Required for executing the command</param>
 		/// <param name="name">New formatted roster</param>
 		/// <returns></returns>
-		[Command("setcurrentroster")]
+		[Command("setroster")]
 		[Description("Sets the current roster to the specified roster. Requires `Administrator` permissions in this server. Set every roster item on a new line (shift+enter) and only leave the command on the first line")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task SetCurrentRoster(CommandContext ctx, [RemainingText, Description("The new roster")] string roster)
+		public async Task SetRoster(CommandContext ctx, [RemainingText, Description("The new roster")] string roster)
 		{
 			string[] lines = roster.Split('\n');
 			Bot._config.Scrims.Clear();

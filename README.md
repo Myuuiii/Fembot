@@ -2,7 +2,7 @@
 
 <img src="doc/ReadMeBanner.png" />
 
-# Commands
+# General Commands
 
 </div>
 
@@ -27,6 +27,33 @@ Mute a user. Required `Mute Members` permission in the server
 ## fm!unmute [user]
 Unmute a user. Required `Mute Members` permission in the server
 
+<div align="center">
+
+# Scrim / Roster Commands
+
+</div>
+
+## fm!roster
+Displays the current roster.
+
+## fm!addroster [team name]
+Add a new team to the roster. Required `Administrator` permissions in the server
+
+## fm!removeroster [team index]
+Remove a team from the roster. Required `Administrator` permissions in the server
+
+## fm!setroster [new roster...]
+Set the roster to the given roster Required `Administrator` permissions in the server
+
+### Example
+```
+fm!setroster
+🇳🇱 Team 1
+🇩🇪 Team 2
+```
+
+## fm!clearroster
+Clears the roster. Required `Administrator` permissions in the server
 
 <div align="center">
 

@@ -16,11 +16,11 @@ namespace Fembot.Modules
 		[Command("roster")]
 		[Description("Displays the current roster. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task RosterAsync(CommandContext ctx)
+		public async Task ViewRoster(CommandContext ctx)
 		{
 			DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
 			embed.WithTitle("The current roster");
-			embed.WithColor(DiscordColor.Purple);
+			embed.Color = DiscordColor.Purple;
 			StringBuilder sb = new StringBuilder();
 
 			for (int i = 0; i < Bot._config.Scrims.Count; i++)
@@ -28,8 +28,9 @@ namespace Fembot.Modules
 				sb.Append($"{i + 1} - {Bot._config.Scrims[i]}\n");
 			}
 			embed.WithDescription(sb.ToString());
+			embed.WithThumbnail("https://github.com/Myuuiii/Fembot/raw/master/doc/ico.png");
 
-			await ctx.RespondAsync("", embed.Build());
+			await ctx.RespondAsync(embed: embed.Build());
 		}
 
 		/// <summary>
@@ -41,12 +42,16 @@ namespace Fembot.Modules
 		[Command("addscrim")]
 		[Description("Adds a player to the scrim roster. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task AddScrimAsync(CommandContext ctx, [RemainingText, Description("The enemy team's name")] string name)
+		public async Task AddScrim(CommandContext ctx, [RemainingText, Description("The enemy team's name")] string name)
 		{
 			Bot._config.Scrims.Add(name);
 			Bot._config.Save();
 
-			await ctx.RespondAsync($"Added `{name}` to the scrim roster.");
+			DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
+			embed.Title = $"Added {name} to the scrim roster";
+			embed.Color = DiscordColor.PhthaloGreen;
+
+			await ctx.RespondAsync(embed: embed.Build());
 		}
 
 		/// <summary>
@@ -58,19 +63,26 @@ namespace Fembot.Modules
 		[Command("removescrim")]
 		[Description("Removes a player from the scrim roster. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task RemoveScrimAsync(CommandContext ctx, [Description("Index of the game to remove")] int index)
+		public async Task RemoveScrim(CommandContext ctx, [Description("Index of the game to remove")] int index)
 		{
+			DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
 			if (index - 1 < 0 || index - 1 >= Bot._config.Scrims.Count)
 			{
-				await ctx.RespondAsync("Invalid index.");
+				embed.Title = $"Invalid Index";
+				embed.Color = DiscordColor.Red;
+
+				await ctx.RespondAsync(embed: embed.Build());
 				return;
 			}
 			else
 			{
+				embed.Title = $"Removed {Bot._config.Scrims[index - 1]} from the roster";
+				embed.Color = DiscordColor.IndianRed;
+
 				Bot._config.Scrims.RemoveAt(index - 1);
 				Bot._config.Save();
 
-				await ctx.RespondAsync($"Removed the scrim from the roster.");
+				await ctx.RespondAsync(embed: embed.Build());
 			}
 		}
 
@@ -83,7 +95,7 @@ namespace Fembot.Modules
 		[Command("setcurrentroster")]
 		[Description("Sets the current roster to the specified roster. Requires `Administrator` permissions in this server. Set every roster item on a new line (shift+enter) and only leave the command on the first line")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task SetCurrentRosterAsync(CommandContext ctx, [RemainingText, Description("The new roster")] string roster)
+		public async Task SetCurrentRoster(CommandContext ctx, [RemainingText, Description("The new roster")] string roster)
 		{
 			string[] lines = roster.Split('\n');
 			Bot._config.Scrims.Clear();
@@ -92,7 +104,11 @@ namespace Fembot.Modules
 				Bot._config.Scrims.Add(lines[i]);
 			}
 			Bot._config.Save();
-			await ctx.RespondAsync("Roster set.");
+
+			DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
+			embed.Title = $"Set the current roster";
+			embed.Color = DiscordColor.Chartreuse;
+			await ctx.RespondAsync(embed: embed.Build());
 		}
 
 		/// <summary>
@@ -103,11 +119,15 @@ namespace Fembot.Modules
 		[Command("clearroster")]
 		[Description("Clears the roster. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task ClearRosterAsync(CommandContext ctx)
+		public async Task ClearRoster(CommandContext ctx)
 		{
 			Bot._config.Scrims.Clear();
 			Bot._config.Save();
-			await ctx.RespondAsync("Roster cleared.");
+
+			DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
+			embed.Title = $"Cleared the roster";
+			embed.Color = DiscordColor.IndianRed;
+			await ctx.RespondAsync(embed: embed.Build());
 		}
 	}
 }

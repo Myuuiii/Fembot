@@ -17,7 +17,7 @@ namespace Fembot.Modules
 		[Command("prefix")]
 		[Description("Changes the prefix of the bot. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task Prefix(CommandContext ctx, [Description("The new prefix.")] string prefix)
+		public async Task Prefix(CommandContext ctx, [RemainingText, Description("The new prefix.")] string prefix)
 		{
 			Bot._config.Prefix = prefix;
 			Bot._config.Save();
@@ -40,7 +40,7 @@ namespace Fembot.Modules
 		[Command("setscrimrole")]
 		[Description("Sets the scrim role for the server. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task SetScrimRole(CommandContext ctx, [Description("The role to set as the scrim role.")] DiscordRole role)
+		public async Task SetScrimRole(CommandContext ctx, [RemainingText, Description("The role to set as the scrim role.")] DiscordRole role)
 		{
 			Bot._config.ScrimRoleId = role.Id;
 			Bot._config.Save();
@@ -61,7 +61,7 @@ namespace Fembot.Modules
 		[Command("setmutedrole")]
 		[Description("Sets the muted role for the server. Requires `Administrator` permissions in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
-		public async Task SetMutedRole(CommandContext ctx, [Description("The role to set as the muted role.")] DiscordRole role)
+		public async Task SetMutedRole(CommandContext ctx, [RemainingText, Description("The role to set as the muted role.")] DiscordRole role)
 		{
 			Bot._config.MutedRoleId = role.Id;
 			Bot._config.Save();
@@ -83,7 +83,7 @@ namespace Fembot.Modules
 		[Command("ban")]
 		[Description("Bans a user from the server. Requires `Ban Members` permission in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.BanMembers)]
-		public async Task Ban(CommandContext ctx, [Description("The user to ban.")] DiscordUser user, [Description("The reason for the ban.")] string reason = "No reason provided")
+		public async Task Ban(CommandContext ctx, [Description("The user to ban.")] DiscordUser user, [RemainingText, Description("The reason for the ban.")] string reason = "No reason provided")
 		{
 			await (user as DiscordMember).BanAsync(0, reason);
 
@@ -104,7 +104,7 @@ namespace Fembot.Modules
 		[Command("kick")]
 		[Description("Kicks a user from the server. Requires `Kick Members` permission in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.KickMembers)]
-		public async Task Kick(CommandContext ctx, [Description("The user to kick.")] DiscordUser user, [Description("The reason for the kick.")] string reason = "No reason provided")
+		public async Task Kick(CommandContext ctx, [Description("The user to kick.")] DiscordUser user, [RemainingText, Description("The reason for the kick.")] string reason = "No reason provided")
 		{
 			await (user as DiscordMember).RemoveAsync(reason);
 
@@ -124,7 +124,7 @@ namespace Fembot.Modules
 		[Command("mute")]
 		[Description("Mutes a user from the server. Requires the `Mute Members` permission in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.MuteMembers)]
-		public async Task Mute(CommandContext ctx, [Description("The user to mute.")] DiscordUser user)
+		public async Task Mute(CommandContext ctx, [RemainingText, Description("The user to mute.")] DiscordUser user)
 		{
 			DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
 			if (ctx.Guild.Roles.Any(r => r.Value.Id == Bot._config.MutedRoleId))
@@ -162,7 +162,7 @@ namespace Fembot.Modules
 		[Command("unmute")]
 		[Description("Unmutes a user from the server. Requires the `Mute Members` permission in this server")]
 		[RequireUserPermissions(DSharpPlus.Permissions.MuteMembers)]
-		public async Task Unmute(CommandContext ctx, [Description("The user to unmute.")] DiscordUser user)
+		public async Task Unmute(CommandContext ctx, [RemainingText, Description("The user to unmute.")] DiscordUser user)
 		{
 			DiscordEmbedBuilder embed = new DiscordEmbedBuilder();
 			if (ctx.Guild.Roles.Any(r => r.Value.Id == Bot._config.MutedRoleId))

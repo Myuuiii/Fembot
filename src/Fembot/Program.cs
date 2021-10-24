@@ -45,6 +45,7 @@ namespace Fembot
 			});
 
 			_commands.RegisterCommands<Modules.Admin>();
+			_commands.RegisterCommands<Modules.Roster>();
 
 			await _client.ConnectAsync();
 

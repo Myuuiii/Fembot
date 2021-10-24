@@ -156,7 +156,7 @@ namespace Fembot.Modules
 		/// <summary>
 		/// Command that unmutes a user
 		/// </summary>
-		/// <param name="ctx">Command Context required for execuring the command</param>
+		/// <param name="ctx">Command Context required for executing the command</param>
 		/// <param name="user">The user to unmute</param>
 		/// <returns></returns>
 		[Command("unmute")]

@@ -70,7 +70,8 @@ namespace Fembot
 					await e.Channel.SendMessageAsync(e.Message.Content);
 					break;
 				case "scrim":
-					await e.Channel.SendMessageAsync($"<@&{_config.ScrimRoleId}>");
+					if (_config.ScrimRoleId != 0) { await e.Channel.SendMessageAsync($"<@&{_config.ScrimRoleId}>"); }
+					else { await e.Channel.SendMessageAsync("Scrim role not set."); }
 					break;
 			}
 

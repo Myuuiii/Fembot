@@ -63,13 +63,15 @@ namespace Fembot
 		{
 			if (e.Author.IsBot) return;
 
-			if (e.Message.Content.ToLower() == "uwu" || e.Message.Content.ToLower() == "owo")
+			switch (e.Message.Content.ToLower())
 			{
-				await e.Channel.SendMessageAsync(e.Message.Content);
-			}
-			if (e.Message.Content.Contains("scrim"))
-			{
-				await e.Channel.SendMessageAsync("> trigger not mapped, please contact Myuu#0001");
+				case "uwu":
+				case "owo":
+					await e.Channel.SendMessageAsync(e.Message.Content);
+					break;
+				case "scrim":
+					await e.Channel.SendMessageAsync($"<@&{_config.ScrimRoleId}>");
+					break;
 			}
 
 			#region Command handler

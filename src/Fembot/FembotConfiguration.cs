@@ -7,7 +7,6 @@ namespace Fembot
 	{
 		public string Token { get; set; } = "";
 		public string Prefix { get; set; } = "";
-		public ulong ModeratorRoleId { get; set; } = 0;
 		public ulong ScrimRoleId { get; set; } = 0;
 		public ulong MutedRoleId { get; set; } = 0;
 

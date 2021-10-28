@@ -27,6 +27,9 @@ Mute a user. Required `Mute Members` permission in the server
 ## fm!unmute [user]
 Unmute a user. Required `Mute Members` permission in the server
 
+## fm!sping [user]
+Will ping the given user five times, once every second
+
 <div align="center">
 
 # Scrim / Roster Commands
